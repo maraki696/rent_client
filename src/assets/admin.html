@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+
+    <title>Add data</title>
+</head>
+<body>
+
+<h1>Dashboard</h1>
+<ul>
+    <li id="deptBtn">Add Department</li>
+    <li id="posBtn">Add Position</li>
+</ul>
+
+    <div id="adddept" class="d-none open1 ">
+         <fieldset>  <form method="POST" class="form" action="http://localhost:3010/adddepartment">
+              <legend>Add Department</legend><br/>
+              <div class="form-group"> 
+                <label for="dept">Department:</label><br/>
+                <input type="text" id="dept" name="dept" required /> <br/> </div>
+                <input type="submit" value="Add" class="btn-primary button-91" />
+                </form>
+                
+              </fieldset></div>
+
+              <div id="addpos" class="d-none open1">
+                <fieldset>
+                  <form id="position-form" class="form" method="post">
+                    <legend>Add Position</legend> <br/>
+                    <div class="form-group">
+                      <label for="department">Department:</label><br/>
+                      <select id="department-dropdown" name="department_id" required>
+                        <option value="">Select a department</option><br/>
+                      </select>
+                      <br />
+                    </div>
+                    <div class="form-group">
+                      <label for="position">Position:</label><br/>
+                      <input type="text" id="position-name" name="position_name" required />
+                      <br />
+                    </div>
+                    <div class="form-group">
+                      <label for="salary">Salary:</label><br/>
+                      <input type="number" id="salary-amount" name="salary_amount" required />
+                      <br />
+                    </div>
+                   
+                    <input type="submit" value="Add" class="btn btn-primary button-91" />
+                
+                </fieldset>
+              </div>
+              
+              
+              
+                
+              
+       </body>      
+        <script src="jQuery.js"></script>
+              <script src="script.js"></script>
+             
+
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="bootstrap.css">
+  <link rel="stylesheet" href="style.css">
+  <title>Employee Managment System </title>
+</head>
+
+<body>
+  <div class="whole">
+    <h1><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+        class="bi bi-file-earmark-richtext" viewBox="0 0 16 16">
+        <path
+          d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5z" />
+        <path
+          d="M4.5 12.5A.5.5 0 0 1 5 12h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5m0-2A.5.5 0 0 1 5 10h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5m1.639-3.708 1.33.886 1.854-1.855a.25.25 0 0 1
+           .289-.047l1.888.974V8.5a.5.5 0 0 1-.5.5H5a.5.5 0 0 1-.5-.5V8s1.54-1.274 1.639-1.208M6.25 6a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5" />
+      </svg>  Dashboard</h1>
+    <ul>
+      <li id="addBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-add" viewBox="0 0 16 16"> <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/> <path d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z"/> </svg>
+       &nbsp; &nbsp;Add Employee</li>
+
+
+
+      <li id="viewBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-person-vcard" viewBox="0 0 16 16"> <path d="M5 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m4-2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5M9 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 9 8m1 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5"/> <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H8.96q.04-.245.04-.5C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1 1 0 0 1 1 12z"/> </svg>
+        
+        
+        
+        &nbsp; &nbsp; View</li>
+      <li id="updateBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+         class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+          <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0
+           1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41m-11 2h3.932a.25.25 0 0 0
+            .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9"/>
+             <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0
+              1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5 5 0 0 0 8 3M3.1 9a5.002 
+          5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9z"/> </svg>
+          &nbsp; &nbsp;   Update</li>
+      <li id="deleteBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-dash" viewBox="0 0 16 16"> <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7M11 12h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1m0-7a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/> <path d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z"/> </svg>
+        &nbsp; &nbsp;  Delete </li>
+    </ul>
+    <div id="Addemployee" class="d-none open">
+      <fieldset>
+        <form method="POST" action="http://localhost:3010/addUser">
+
+          <legend>Add Employee</legend>
+          <div class="d-flex justify-content-around">
+            <div class="">
+              <div class="form-group">
+                <label for="Firstname">First Name</label> </br>
+                <input type="text" id="fname" name="fname" required /> <br />
+              </div>
+              <div class="form-group">
+                <label for="Middlename">Middle Name</label></br>
+                <input type="text" id="mname" name="mname" required /> <br />
+              </div>
+              <div class="form-group">
+                <label for="Lastname">Last Name</label></br>
+                <input type="text" id="lname" name="lname" required /> <br />
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label></br>
+                <input type="email" id="email" name="email" required /> <br />
+              </div>
+              <div class="form-group">
+                <label for="age">Age</label></br>
+                <input type="number" name="age" id="age" required /> <br />
+              </div>
+              <div class="form-group">
+
+                <label for="contact">Contact</label></br>
+                <input type="text" name="contact" id="contact" required /> <br />
+              </div>
+
+              <div class="form-group">
+                <label for="country">Country</label></br>
+                <input type="text" name="country" id="country" required /> <br />
+              </div>
+            </div>
+            <div class="">
+
+              <div class="form-group">
+                <label for="gender">Gender</label></br>
+                <label class="radio-option">
+                  <input type="radio" name="gender" id="genderM" value="Male" />Male</label>
+                <label class="radio-option">
+                  <input type="radio" name="gender" id="genderF" value="Female" />Female </label> <br />
+              </div>
+
+              <div class="form-group  my-2">
+
+                <label for="hiredate">Hire date</label></br>
+                <input type="date" class="date-input"   name="hiredate" id="hiredate" required /> <br />
+              </div>
+
+              <div class="form-group  my-2">
+                <label for="city">City</label></br>
+                <select name="city" id="city" onchange="showTextBox('city', this)">>
+                  <option>Select City</option>
+                  <option value="AddisAbaba">Addis Ababa</option>
+                  <option value="DireDawa">Dire Dawa</option>
+                  <option value="Mekelle">mekelle</option>
+                  <option value="Gondar">Gondar</option>
+                  <option value="BahirDar">Bahir Dar</option>
+                  <option value="Hawassa">Hawassa</option>
+                  <option value="Adama">Adama</option>
+                  <option value="Dessie">Dessie</option>
+                  <option value="Jimma">Jimma</option>
+                  <option value="Harar">Harar</option>
+                  <option value="other">Other</option>
+                </select>
+                <input type="text" name="" class="otherInput" style="display: none;" placeholder="Enter city name">
+              </div>
+
+
+
+              <div class="form-group  my-2">
+                <label for="Subcity">Subcity</label></br>
+
+                <select name="subcity" id="subcity" onchange="showTextBox('subcity', this)">
+
+                  <option>Select SubCity</option>
+                  <option value="Bole">Bole</option>
+                  <option value="AkakyKality">Akaki Kality</option>
+                  <option value="Kirkos">Kirkos</option>
+                  <option value="Yeka">Yeka</option>
+                  <option value="Gullele">Gullele</option>
+                  <option value="NefasSilk">Nifas Silk-lafto</option>
+                  <option value="KolfeKeranio">Kolfe Keranio</option>
+                  <option value="Lideta">Lideta</option>
+                  <option value="AddisKetema">Addis Ketema</option>
+                  <option value="other">Other</option>
+                </select>
+                <input type="text" name="" class="otherInput" style="display: none;" placeholder="Enter Subcity name">
+              </div>
+
+              <div class="form-group  my-2">
+                <label for="department">Department</label></br>
+                <select id="department-dropdown" name="department_id" required>
+                  <option value="">Select a department</option>
+                </select>
+                <br />
+              </div>
+
+              <div class="form-group  my-2">
+                <label for="position">Position</label></br>
+                <select name="position_id" id="position-dropdown">
+                  <option value="">Select position</option>
+                </select> <br />
+
+              </div>
+
+
+            </div>
+          </div>
+          <input type="submit" value="Save" class="btn-primary mt-2 button-91" />
+
+
+        </form>
+      </fieldset>
+
+    </div>
+  </div>
+  </div>
+
+
+  <div id="viewTable" class="d-none open">
+    <h3>Employee table</h3>
+    <div class="table-container">
+
+    <table class="table" id="viewTable">
+      <thead>
+        <tr>
+          <th> Emplpoyee Id</th>
+          <th>First Name</th>
+          <th>Middle Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Age</th>
+          <th>Gender</th>
+          <th>Contact</th>
+          <th>hiredate</th>
+          <th>Country</th>
+          <th>City</th>
+          <th>Subcity</th>
+          <th>Position</th>
+          <th>Department</th>
+          <th>Salary</th>
+
+
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+</div>
+
+  <div id="updateForm" class="d-none open form-group">
+
+    <form id="updateForm" action="http://localhost:3010/updateForm">
+
+
+      <fieldset>
+        <legend>Update Form</legend>
+        <div class="d-flex justify-content-around">
+          <div class="">
+            <div class="form-group">
+              <label for="employeeid">Employee Id</label> <br />
+              <select id="update-id" name="employee_id" required>
+                <option value="">Select Id</option>
+              </select>
+              <br />
+            </div>
+
+            <div class="form-group">
+              <label for="updateFirstname">First Name:</label> <br />
+              <input type="text" id="updatefname" name="updatefname" /> <br />
+            </div>
+            <div class="form-group">
+              <label for="updateMiddlename">Middle Name:</label> <br />
+              <input type="text" id="updatemname" name="updatemname" /> <br />
+            </div>
+            <div class="form-group">
+              <label for="updateLastname">Last Name:</label> <br />
+              <input type="text" id="updatelname" name="updatelname" /> <br />
+            </div>
+            <div class="form-group">
+              <label for="updateemail">Email:</label> <br />
+              <input type="email" id="updateemail" name="updateemail" /> <br />
+            </div>
+            <div class="form-group">
+              <label for="updateage">Age</label> <br />
+              <input type="number" name="updateage" id="updateage" /> <br />
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="updatecontact">Contact:</label> <br />
+              <input type="text" name="updatecontact" id="updatecontact" /> <br />
+            </div>
+          </div>
+          <div class="">
+
+
+            <div class="form-group">
+              <label for="updategender">Gender</label> <br />
+              <label class="radio-option">
+
+                <input type="radio" name="updategender" id="updategenderM" value="Male" />Male
+              </label>
+              <label class="radio-option">
+
+                <input type="radio" name="updategender" id="updategenderF" value="Female" />Female </label>
+              <br />
+            </div>
+            <div class="form-group">
+              <label for="updatecountry">Country:</label> <br />
+              <input type="text" name="updatecountry" id="updatecountry" /> <br />
+            </div>
+
+            <div class="form-group">
+
+              <label for="hiredate">Hire date:</label> <br />
+              <input type="date" name="updatehiredate" id="updatehiredate" required /> <br />
+            </div>
+
+            <div class="form-group">
+              <label for="updatecity">City:</label> <br />
+              <select name="updatecity" id="updatecity" onchange="showTextBox('updatecity', this)">>
+                <option>Select City</option>
+                <option value="AddisAbaba">Addis Ababa</option>
+                <option value="DireDawa">Dire Dawa</option>
+                <option value="Mekelle">mekelle</option>
+                <option value="Gondar">Gondar</option>
+                <option value="BahirDar">Bahir Dar</option>
+                <option value="Hawassa">Hawassa</option>
+                <option value="Adama">Adama</option>
+                <option value="Dessie">Dessie</option>
+                <option value="Jimma">Jimma</option>
+                <option value="Harar">Harar</option>
+                <option value="other">Other</option>
+              </select>
+              <input type="text" name="" class="otherInput" style="display: none;" placeholder="Enter city name">
+            </div>
+
+            <div class="form-group">
+              <label for="updateSubcity">Subcity:</label> <br />
+              <select name="updatesubcity" id="updatesubcity" onchange="showTextBox('updatesubcity', this)">
+                <option>Select SubCity</option>
+                <option value="Bole">Bole</option>
+                <option value="AkakyKality">Akaki Kality</option>
+                <option value="Kirkos">Kirkos</option>
+                <option value="Yeka">Yeka</option>
+                <option value="Gullele">Gullele</option>
+                <option value="NefasSilk">Nifas Silk-lafto</option>
+                <option value="KolfeKeranio">Kolfe Keranio</option>
+                <option value="Lideta">Lideta</option>
+                <option value="AddisKetema">Addis Ketema</option>
+                <option value="other">Other</option>
+              </select>
+              <input type="text" name="" class="otherInput" style="display: none;" placeholder="Enter Subcity name">
+            </div>
+            <div class="form-group">
+              <label for="department">Department:</label> <br />
+              <select id="updatedepartment-dropdown" name="updatedepartment_id" required>
+                <option value="">choose a department</option>
+              </select>
+              <br />
+            </div>
+
+            <div class="form-group">
+              <label for="position">Position:</label> <br />
+              <select name="updateposition_id" id="updateposition-dropdown">
+                <option value="">Select position</option>
+              </select> <br />
+            </div>
+
+          </div>
+        </div>
+        <input type="submit" id="update" value="update" class="btn-primary mt-2 button-91" />
+
+    </form>
+
+    </fieldset>
+  </div>
+
+  <div id="deleteForm" class="d-none open1 ">
+    <h3>Delete Form</h3>
+    <form id="deleteForm">
+      <div class="form-group" id="deleteIds">
+        <label for="deleteId">ID</label>
+        <select id="deleteId" name="employee_id" required>
+          <option value="" class="px-3">Select Id</option>
+        </select>
+      </div>
+
+      <input type="submit" value="delete" class="btn-primary my-3 button-91" />
+    </form>
+  </div>
+  </div>
+</body>
+
+<script>
+  let otherInputs = document.querySelectorAll(".otherInput");
+
+  function showTextBox(fieldName, select) {
+    let otherInput = select.nextElementSibling;
+    if (select.value === "other") {
+      otherInput.style.display = "block";
+      otherInput.name = `${fieldName}`;
+      otherInput.addEventListener("input", function () {
+        select.value = this.value;
+      });
+    } else {
+      otherInput.style.display = "none";
+      otherInput.name = "";
+      otherInput.value = "";
+    }
+
+  }
+
+
+  const radioOptions = document.querySelectorAll('.radio-option');
+
+  radioOptions.forEach(option => {
+    option.addEventListener('click', () => {
+      // Unselect all options
+      radioOptions.forEach(opt => opt.classList.remove('selected'));
+      // Select the clicked option
+      option.classList.add('selected');
+    });
+  });
+
+</script>
+
+<script src="jQuery.js"></script>
+<script src="script.js"></script>
+
+</html>
