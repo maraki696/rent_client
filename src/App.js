@@ -40,7 +40,8 @@ function App() {
         
         {/* Management Routes (Protected) */}
         <Route path="/management/*" element={<ProtectedRoute roleRequired="management"><ManagementLayout /></ProtectedRoute>}>
-          <Route path="register" element={<Register />} />
+ <Route path="register" element={<Register />} />
+         
           <Route path="view" element={<View />} />
           <Route path="edit" element={<CustomerList />} />
           <Route path="delete" element={<CustomerList />} />
