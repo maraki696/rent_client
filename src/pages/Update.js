@@ -101,7 +101,7 @@ function Update() {
                 <label htmlFor="roomsize_sq_m">Room Size (sq m)</label>
                 <input
                   value={data.roomsize_sq_m || ""}
-                  type="number"
+                  type="text"
                   className="form-control"
                   required
                   onChange={(e) =>

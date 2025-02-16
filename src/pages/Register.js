@@ -70,7 +70,7 @@ function Register() {
       {message && (
         <div
           className={`alert alert-${message.type} text-center`}
-          style={{ position: "absolute", top: "100px", left: "50%", transform: "translateX(-50%)", zIndex: "10", width: "90%" }}
+          style={{ position: "absolute", top: "150px", left: "50%", transform: "translateX(-50%)", zIndex: "10", width: "50%" }}
         >
           {message.text}
         </div>
