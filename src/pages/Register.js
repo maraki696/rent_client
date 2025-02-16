@@ -68,13 +68,23 @@ function Register() {
 
       {/* Success/Error Message */}
       {message && (
-        <div
-          className={`alert alert-${message.type} text-center`}
-          style={{ position: "absolute", top: "150px", left: "50%", transform: "translateX(-50%)", zIndex: "10", width: "50%" }}
-        >
-          {message.text}
-        </div>
-      )}
+  <div
+    className={`alert alert-${message.type} text-center`}
+    style={{
+      position: "fixed",
+      bottom: "20px", // Position at the bottom
+      left: "50%",
+      transform: "translateX(-50%)",
+      zIndex: "1050", // Ensure it appears above everything
+      width: "80%",
+      maxWidth: "400px", // Prevent it from being too wide
+      boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+    }}
+  >
+    {message.text}
+  </div>
+)}
+
 
       <form onSubmit={handleSubmit} className="row g-2">
         {/* First Name */}

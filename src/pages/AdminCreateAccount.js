@@ -17,6 +17,7 @@ const AdminCreateAccount = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
@@ -25,6 +26,8 @@ const AdminCreateAccount = () => {
       setMessage("Passwords do not match");
       return;
     }
+
+    setLoading(true); // Start loading
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/admin/create_account`,
@@ -37,11 +40,13 @@ const AdminCreateAccount = () => {
       if (response.data.success) navigate("/admin/login");
     } catch (error) {
       setMessage(error.response?.data?.message || "Registration failed");
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100">
+    <div className="d-flex justify-content-center align-items-center mt-5">
       <div className="card p-4 shadow-lg d-flex flex-row">
         <div className="d-none d-md-block">
           <img
@@ -86,7 +91,7 @@ const AdminCreateAccount = () => {
                   required
                 />
                 <span
-                  className="input-group-text bg-white border-0  cursor-pointer"
+                  className="input-group-text bg-white border-0 cursor-pointer"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   <FontAwesomeIcon
@@ -121,8 +126,15 @@ const AdminCreateAccount = () => {
                 </span>
               </div>
             </div>
-            <button type="submit" className="btn btn-dark w-100">
-              Register
+            <button type="submit" className="btn btn-dark w-100" disabled={loading}>
+              {loading ? (
+                <>
+                  <span className="spinner-border spinner-border-sm me-2"></span>
+                  Registering...
+                </>
+              ) : (
+                "Register"
+              )}
             </button>
           </form>
         </div>

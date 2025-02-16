@@ -10,11 +10,13 @@ const AdminChangePassword = () => {
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [message, setMessage] = useState("");
-
-
+  const [loading, setLoading] = useState(false); // Loading state
 
   const handleChangePassword = async (e) => {
     e.preventDefault();
+    setLoading(true); // Start loading
+    setMessage("");
+
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/admin/change-password`, {
         username,
@@ -24,12 +26,14 @@ const AdminChangePassword = () => {
       setMessage(response.data.message);
     } catch (error) {
       setMessage(error.response?.data?.message || "Password change failed");
+    } finally {
+      setLoading(false); // Stop loading after response
     }
   };
 
   return (
-    <div className="ms-5 d-flex justify-content-center align-items-center vh-100">
-      <div className="card p-4 shadow-lg d-flex flex-row">
+    <div className="mt-5  d-flex justify-content-center align-items-center ">
+      <div className="card  p-4 shadow-lg d-flex flex-row">
         <div className="p-4" style={{ width: "300px" }}>
           <h3 className="text-center fw-bold">Change Admin Password</h3>
           {message && <p className="text-info text-center">{message}</p>}
@@ -96,8 +100,15 @@ const AdminChangePassword = () => {
                 </span>
               </div>
             </div>
-            <button type="submit" className="btn btn-dark w-100">
-              Change Password
+            <button type="submit" className="btn btn-dark w-100" disabled={loading}>
+              {loading ? (
+                <>
+                  <span className="spinner-border spinner-border-sm me-2"></span>
+                  Changing...
+                </>
+              ) : (
+                "Change Password"
+              )}
             </button>
           </form>
         </div>
@@ -105,4 +116,5 @@ const AdminChangePassword = () => {
     </div>
   );
 };
+
 export default AdminChangePassword;

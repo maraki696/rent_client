@@ -122,13 +122,15 @@ function AdminDashboard() {
         }}
       >
        
-        <div className="dashboard text-center p-3">
-          <h1 className="fs-2 m-0 text-white d-flex align-items-center justify-content-center">
-            <div className="text" />
-            <FontAwesomeIcon icon={faUserShield} className="me-2 icon" />
-            <span className="ms-2">Admin Dashboard</span>
-          </h1>
-        </div>
+       <div className="dashboard text-center p-3">
+  <h1 className="fs-2 m-0 text-white d-flex align-items-center justify-content-center">
+    <div className="text" />
+    <FontAwesomeIcon icon={faUserShield} className="me-2 icon" />
+    <span className="ms-2 d-none d-sm-inline">Admin Dashboard</span>
+    <span className="ms-2 d-inline d-sm-none">Admin</span>
+  </h1>
+</div>
+
       </div>
     </div>
   );

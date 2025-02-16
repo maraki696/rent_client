@@ -89,7 +89,7 @@ const CustomerList = () => {
           <table className="table table-striped table-bordered">
             <thead className="table-dark">
               <tr>
-                <th>Customer ID</th>
+                <th className="d-none d-md-table-cell">Customer ID</th>
                 <th>Customer Name</th>
                 <th className="d-none d-md-table-cell">Phone Number</th>
                 <th>Action</th>
@@ -104,7 +104,7 @@ const CustomerList = () => {
                 );
               }).map(customer => (
                 <tr key={customer.customer_id}>
-                  <td>{customer.customer_id}</td>
+                  <td className="d-none d-md-table-cell">{customer.customer_id}</td>
                   <td>{customer.firstname} {customer.lastname}</td>
                   <td className="d-none d-md-table-cell">{customer.phonenumber}</td>
                   <td>

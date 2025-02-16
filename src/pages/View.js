@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function View() {
@@ -38,7 +39,7 @@ function View() {
 
       {/* Floor Filter Dropdown */}
       <div className="mb-3 d-flex justify-content-start">
-  <label className="fw-bold me-1 mt-1">Filter by Floor:</label>
+  <label className="fw-bold me-1 mt-1">Floor:</label>
   <div className="col-8 col-sm-6 col-md-3"> 
     <select
       className="form-select w-100"
@@ -106,10 +107,15 @@ function View() {
 
                   {/* Actions */}
                   <td>
-                    <Link className="text-success mx-1" to={`/read/${customer.customer_id}`}>
-                      View More...
-                    </Link>
-                  </td>
+  <Link 
+    className="btn btn-link text-success p-0 d-flex align-items-center custom-link" 
+    to={`/read/${customer.customer_id}`}
+  >
+    More...
+  </Link>
+</td>
+
+
                 </tr>
               ))}
             </tbody>
