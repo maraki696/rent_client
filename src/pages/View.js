@@ -108,7 +108,7 @@ function View() {
                   {/* Actions */}
                   <td>
   <Link 
-    className="btn btn-outline-success text-success p-0 d-flex align-items-center custom-link" 
+    className="btn btn-outline-success text-success px-1 d-flex align-items-center custom-link" 
     to={`/read/${customer.customer_id}`}
   >
     More...
