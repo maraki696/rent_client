@@ -2,9 +2,13 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-     font-family: 'Roboto', sans-serif;
-  font-size:medium;
+ font-family: sans-serif;
     overflow-x: hidden;
+}
+.btn-sm {
+  white-space: nowrap;
+  padding: 5px 5px; /* Adjust padding if needed */
+  font-size: 12px; /* Adjust font size */
 }
 
 
@@ -108,8 +112,12 @@ border: solid 2px  rgb(60, 60, 60);
 }
 
 @media (max-width: 1000px){
+
   .regcontainer{
     margin-top: 20%;
+  }
+  .icon-hide {
+    display: none;
   }
 }
 

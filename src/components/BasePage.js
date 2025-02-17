@@ -14,7 +14,7 @@ function BasePage() {
     <div
       className="base container-fluid bg-light-secondary min-vh-100 d-flex flex-column align-items-center justify-content-center">
       <div className="banner text-center p-5 mb-5 rounded-3 shadow-lg w-100">
-        <h1 className="display-4 fw-bold">
+        <h1 className="display-5 fw-bold overflow-hidden">
           Welcome to{" "}
           <span className="text-warning">Werkamba Rent Management System</span>
         </h1>

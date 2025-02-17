@@ -110,11 +110,11 @@ const CustomerList = () => {
                   <td>
                     {isEditPage ? (
                       <Link to={`/edit/${customer.customer_id}`} className="btn btn-outline-warning me-2">
-                        <FontAwesomeIcon icon={faPencilAlt} /> Edit
+                        <FontAwesomeIcon icon={faPencilAlt}  className='d-none d-md-inline' /> Edit
                       </Link>
                     ) : isDeletePage ? (
                       <button onClick={() => confirmDelete(customer.customer_id)} className="btn btn-outline-danger">
-                        <FontAwesomeIcon icon={faTrashAlt} /> Delete
+                        <FontAwesomeIcon icon={faTrashAlt}  className='d-none d-md-inline'/> Delete
                       </button>
                     ) : (
                       <>
@@ -125,7 +125,7 @@ const CustomerList = () => {
                           <FontAwesomeIcon icon={faPencilAlt} /> Edit
                         </Link>
                         <button onClick={() => confirmDelete(customer.customer_id)} className="btn btn-outline-danger">
-                          <FontAwesomeIcon icon={faTrashAlt} /> Delete
+                          <FontAwesomeIcon icon={faTrashAlt}/> Delete
                         </button>
                       </>
                     )}

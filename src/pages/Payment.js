@@ -28,6 +28,14 @@ const Payment = () => {
     });
   }, []);
 
+  // Scroll to the approval form when it becomes visible
+  useEffect(() => {
+    if (selectedCustomer) {
+      const formElement = document.getElementById("approve-payment-form");
+      formElement?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [selectedCustomer]);
+
   const filteredCustomers = customers.filter((customer) =>
     `${customer.firstname} ${customer.lastname}`.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -89,8 +97,8 @@ const Payment = () => {
   };
 
   return (
-    <div className="container regcontainer" >
-      <div className="card shadow p-4" >
+    <div className="container regcontainer">
+      <div className="card shadow p-4">
         <h2 className="text-center mb-3">Approve Rent Payments</h2>
 
         <div className="input-group mb-3">
@@ -113,7 +121,7 @@ const Payment = () => {
             </div>
           </div>
         ) : (
-          <ul className="list-group customer-list" >
+          <ul className="list-group customer-list">
             {filteredCustomers.map((customer) => (
               <li key={customer.customer_id} className="list-group-item d-flex justify-content-between align-items-center">
                 {customer.firstname} {customer.lastname}
@@ -122,7 +130,7 @@ const Payment = () => {
                     <FontAwesomeIcon icon={faCheckCircle} /> Paid
                   </span>
                 ) : (
-                  <button className="btn btn-dark btn-sm" onClick={() => handleSelectCustomer(customer)}>
+                  <button className="btn btn-dark btn-sm " onClick={() => handleSelectCustomer(customer)}>
                     Approve
                   </button>
                 )}
@@ -132,7 +140,7 @@ const Payment = () => {
         )}
 
         {selectedCustomer && (
-          <div className="card mt-3 p-3">
+          <div className="card mt-3 p-3" id="approve-payment-form">
             <h4 className="text-center">Approve Payment for {selectedCustomer.firstname} {selectedCustomer.lastname}</h4>
             <label>Start Date:</label>
             <input type="date" className="form-control" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
