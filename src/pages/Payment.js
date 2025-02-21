@@ -47,13 +47,26 @@ const Payment = () => {
     setAmount("");
   };
 
-  const handleApprovePayment = () => {
-    if (selectedCustomer && startDate && endDate && amount) {
-      setShowModal(true);
-    } else {
-      alert("Please fill in all fields before approving payment.");
-    }
-  };
+  const handleApprovePayment = (customerId, startDate, paymentDate, endDate) => {
+  // Convert dates to ISO string format (without time part for date-only)
+  const startDateString = new Date(startDate).toISOString().split('T')[0];
+  const paymentDateString = new Date(paymentDate).toISOString().split('T')[0];
+  const endDateString = new Date(endDate).toISOString().split('T')[0];
+
+  axios
+    .post(`${process.env.REACT_APP_API_URL}/approve_payment`, {
+      customerId,
+      startDate: startDateString,
+      paymentDate: paymentDateString,
+      endDate: endDateString,
+    })
+    .then((res) => {
+      setMessage({ type: "success", text: "Payment approved successfully!" });
+    })
+    .catch((err) => {
+      setMessage({ type: "danger", text: "Error occurred while approving payment." });
+    });
+};
 
   const handleAdminLogin = async () => {
     setLoggingIn(true);
