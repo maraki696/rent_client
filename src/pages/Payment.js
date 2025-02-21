@@ -50,6 +50,8 @@ const Payment = () => {
 
   const handleApprovePayment = () => {
     if (selectedCustomer && startDate && endDate && amount) {
+          const formattedStartDate = new Date(startDate).toISOString().split("T")[0];
+    const formattedEndDate = new Date(endDate).toISOString().split("T")[0];
       setShowModal(true);
     } else {
       alert("Please fill in all fields before approving payment.");
