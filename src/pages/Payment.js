@@ -20,7 +20,7 @@ const Payment = () => {
   const [loggingIn, setLoggingIn] = useState(false);
 
   useEffect(() => {
-    axios.get(${process.env.REACT_APP_API_URL}/customers).then((response) => {
+    axios.get(`${process.env.REACT_APP_API_URL}/customers`).then((response) => {
       setCustomers(response.data);
       setLoading(false);
     }).catch(() => {
@@ -37,7 +37,7 @@ const Payment = () => {
   }, [selectedCustomer]);
 
   const filteredCustomers = customers.filter((customer) =>
-    ${customer.firstname} ${customer.lastname}.toLowerCase().includes(searchQuery.toLowerCase())
+    `${customer.firstname} ${customer.lastname}`.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const handleSelectCustomer = (customer) => {
@@ -58,7 +58,7 @@ const Payment = () => {
   const handleAdminLogin = async () => {
     setLoggingIn(true);
     try {
-      const response = await axios.post(${process.env.REACT_APP_API_URL}/admin/login, {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/admin/login`, {
         username: adminUsername,
         password: adminPassword,
       });
@@ -66,14 +66,14 @@ const Payment = () => {
       if (response.data.success) {
         setApproving(true);
         axios
-          .post(${process.env.REACT_APP_API_URL}/approve_payment, {
+          .post(`${process.env.REACT_APP_API_URL}/approve_payment`, {
             customer_id: selectedCustomer.customer_id,
             start_date: startDate,
             end_date: endDate,
             amount: amount,
           })
           .then(() => {
-            setMessage(Payment approved for ${selectedCustomer.firstname} ${selectedCustomer.lastname});
+            setMessage(`Payment approved for ${selectedCustomer.firstname} ${selectedCustomer.lastname}`);
             setSelectedCustomer(null);
             setCustomers(customers.map(c => c.customer_id === selectedCustomer.customer_id ? { ...c, payment_status: "Paid" } : c));
           })
@@ -85,7 +85,6 @@ const Payment = () => {
             setApproving(false);
             setShowModal(false);
           });
-
       } else {
         setMessage("Invalid username or password.");
       }
@@ -94,6 +93,14 @@ const Payment = () => {
       setMessage("Error during login.");
     }
     setLoggingIn(false);
+  };
+
+  // Handle date changes (no conversion)
+  const handleDateChange = (e, type) => {
+    const selectedDate = e.target.value; // Use the raw date string (YYYY-MM-DD)
+    
+    if (type === "start") setStartDate(selectedDate);
+    else setEndDate(selectedDate);
   };
 
   return (
@@ -143,11 +150,27 @@ const Payment = () => {
           <div className="card mt-3 p-3" id="approve-payment-form">
             <h4 className="text-center">Approve Payment for {selectedCustomer.firstname} {selectedCustomer.lastname}</h4>
             <label>Start Date:</label>
-            <input type="date" className="form-control" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+            <input
+              type="date"
+              className="form-control"
+              value={startDate}
+              onChange={(e) => handleDateChange(e, "start")}
+            />
             <label className="mt-2">End Date:</label>
-            <input type="date" className="form-control" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+            <input
+              type="date"
+              className="form-control"
+              value={endDate}
+              onChange={(e) => handleDateChange(e, "end")}
+            />
             <label className="mt-2">Amount:</label>
-            <input type="number" className="form-control" placeholder="Enter payment amount" value={amount} onChange={(e) => setAmount(e.target.value)} />
+            <input
+              type="number"
+              className="form-control"
+              placeholder="Enter payment amount"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+            />
             <div className="mt-3 d-flex justify-content-end gap-2">
               <button className="btn btn-dark" onClick={handleApprovePayment}>
                 {approving ? <span className="spinner-border spinner-border-sm"></span> : "Confirm Approval"}
@@ -169,11 +192,21 @@ const Payment = () => {
               <div className="modal-body">
                 <div className="mb-3">
                   <label>Username</label>
-                  <input type="text" className="form-control" value={adminUsername} onChange={(e) => setAdminUsername(e.target.value)} />
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={adminUsername}
+                    onChange={(e) => setAdminUsername(e.target.value)}
+                  />
                 </div>
                 <div className="mb-3">
                   <label>Password</label>
-                  <input type="password" className="form-control" value={adminPassword} onChange={(e) => setAdminPassword(e.target.value)} />
+                  <input
+                    type="password"
+                    className="form-control"
+                    value={adminPassword}
+                    onChange={(e) => setAdminPassword(e.target.value)}
+                  />
                 </div>
                 {message && <div className="alert alert-danger mt-3">{message}</div>}
               </div>
@@ -192,9 +225,3 @@ const Payment = () => {
 };
 
 export default Payment;
-
-
-
-
-
-               
