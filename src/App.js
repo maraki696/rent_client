@@ -36,6 +36,7 @@ function App() {
         <Route path="/edit/:customer_id" element={<Update />} />
          
           <Route path="/read/:customer_id" element={<Read />} />
+          <Route path="/delete/:customer_id" element={<Read />} />
 
         
         {/* Management Routes (Protected) */}

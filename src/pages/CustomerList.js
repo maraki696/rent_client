@@ -36,18 +36,22 @@ const CustomerList = () => {
   };
 
   const handleDelete = () => {
+    console.log("Attempting to delete customer:", deleteCustomerId);
+  
     axios.delete(`${process.env.REACT_APP_API_URL}/delete/${deleteCustomerId}`)
-      .then(() => {
+      .then(response => {
+        console.log("Delete response:", response.data);
         setAlert({ type: 'success', message: 'Customer deleted successfully!' });
         setCustomers(prev => prev.filter(customer => customer.customer_id !== deleteCustomerId));
       })
       .catch(err => {
-        console.error('Error deleting customer:', err);
+        console.error('Error deleting customer:', err.response?.data || err);
         setAlert({ type: 'danger', message: 'Failed to delete customer.' });
       });
+  
     setShowModal(false);
   };
-
+  
   const isEditPage = location.pathname.includes('/edit');
   const isDeletePage = location.pathname.includes('/delete');
 
