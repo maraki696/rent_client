@@ -28,7 +28,6 @@ const Payment = () => {
     });
   }, []);
 
-  // Scroll to the approval form when it becomes visible
   useEffect(() => {
     if (selectedCustomer) {
       const formElement = document.getElementById("approve-payment-form");
@@ -95,7 +94,6 @@ const Payment = () => {
     setLoggingIn(false);
   };
 
-  // Handle date changes (no conversion)
   const handleDateChange = (e, type) => {
     const selectedDate = e.target.value; // Use the raw date string (YYYY-MM-DD)
     
@@ -137,7 +135,7 @@ const Payment = () => {
                     <FontAwesomeIcon icon={faCheckCircle} /> Paid
                   </span>
                 ) : (
-                  <button className="btn btn-dark btn-sm " onClick={() => handleSelectCustomer(customer)}>
+                  <button className="btn btn-dark btn-sm" onClick={() => handleSelectCustomer(customer)}>
                     Approve
                   </button>
                 )}
@@ -225,9 +223,3 @@ const Payment = () => {
 };
 
 export default Payment;
-
-
-
-
-
-
