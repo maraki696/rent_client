@@ -33,15 +33,12 @@ const Payment = () => {
 
   useEffect(() => {
     if (selectedCustomer) {
-      const formElement = document.getElementById("approve-payment-form");
-      formElement?.scrollIntoView({ behavior: "smooth", block: "center" });
+      document.getElementById("approve-payment-form")?.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   }, [selectedCustomer]);
 
   const filteredCustomers = customers.filter((customer) =>
-    `${customer.firstname} ${customer.lastname}`
-      .toLowerCase()
-      .includes(searchQuery.toLowerCase())
+    `${customer.firstname} ${customer.lastname}`.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const handleSelectCustomer = (customer) => {
@@ -52,43 +49,37 @@ const Payment = () => {
   };
 
   const handleApprovePayment = () => {
-    if (selectedCustomer && startDate && endDate && amount) {
-      setShowModal(true);
-    } else {
+    if (!selectedCustomer || !startDate || !endDate || !amount) {
       alert("Please fill in all fields before approving payment.");
+      return;
     }
+    setShowModal(true);
   };
 
   const handleAdminLogin = async () => {
     setLoggingIn(true);
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/admin/login`,
-        {
-          username: adminUsername,
-          password: adminPassword,
-        }
-      );
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/admin/login`, {
+        username: adminUsername,
+        password: adminPassword,
+      });
 
       if (response.data.success) {
         setApproving(true);
 
-        // ✅ Ensure the correct date format is sent to backend
-        const formattedStartDate = new Date(startDate).toISOString().split("T")[0];
-        const formattedEndDate = new Date(endDate).toISOString().split("T")[0];
-
+        // ✅ Log data being sent to the backend
         console.log("Sending to backend:", {
           customer_id: selectedCustomer.customer_id,
-          start_date: formattedStartDate,
-          end_date: formattedEndDate,
+          start_date: startDate,
+          end_date: endDate,
           amount: amount,
         });
 
         axios
           .post(`${process.env.REACT_APP_API_URL}/approve_payment`, {
             customer_id: selectedCustomer.customer_id,
-            start_date: formattedStartDate,
-            end_date: formattedEndDate,
+            start_date: startDate,
+            end_date: endDate,
             amount: amount,
           })
           .then(() => {
@@ -104,7 +95,6 @@ const Payment = () => {
             setApproving(false);
             setShowModal(false);
           });
-
       } else {
         setMessage("Invalid username or password.");
       }
@@ -149,7 +139,7 @@ const Payment = () => {
                     <FontAwesomeIcon icon={faCheckCircle} /> Paid
                   </span>
                 ) : (
-                  <button className="btn btn-dark btn-sm " onClick={() => handleSelectCustomer(customer)}>
+                  <button className="btn btn-dark btn-sm" onClick={() => handleSelectCustomer(customer)}>
                     Approve
                   </button>
                 )}
@@ -176,6 +166,32 @@ const Payment = () => {
           </div>
         )}
       </div>
+
+      {showModal && (
+        <div className="modal show d-block" tabIndex="-1">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Approve</h5>
+                <button type="button" className="btn-close" onClick={() => setShowModal(false)}></button>
+              </div>
+              <div className="modal-body">
+                <label>Username</label>
+                <input type="text" className="form-control" value={adminUsername} onChange={(e) => setAdminUsername(e.target.value)} />
+                <label>Password</label>
+                <input type="password" className="form-control" value={adminPassword} onChange={(e) => setAdminPassword(e.target.value)} />
+                {message && <div className="alert alert-danger mt-3">{message}</div>}
+              </div>
+              <div className="modal-footer">
+                <button className="btn btn-secondary" onClick={() => setShowModal(false)}>Cancel</button>
+                <button className="btn btn-dark" onClick={handleAdminLogin}>
+                  {loggingIn ? <span className="spinner-border spinner-border-sm"></span> : "Approve"}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
