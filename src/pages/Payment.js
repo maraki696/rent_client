@@ -49,6 +49,10 @@ const Payment = () => {
 
   const handleApprovePayment = () => {
     if (selectedCustomer && startDate && endDate && amount) {
+       console.log("Sending to backend:");
+    console.log("Start Date: ", startDate); // Log the start date
+    console.log("End Date: ", endDate); // Log the end date
+    console.log("Amount: ", amount); // Log the amount
       setShowModal(true);
     } else {
       alert("Please fill in all fields before approving payment.");
