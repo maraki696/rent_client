@@ -28,7 +28,6 @@ const Payment = () => {
     });
   }, []);
 
-  // Scroll to the approval form when it becomes visible
   useEffect(() => {
     if (selectedCustomer) {
       const formElement = document.getElementById("approve-payment-form");
@@ -47,11 +46,18 @@ const Payment = () => {
     setAmount("");
   };
 
+  // ✅ Fix: Handle date properly to avoid one-day reduction
+  const handleDateChange = (e, type) => {
+    const selectedDate = new Date(e.target.value);
+    const formattedDate = selectedDate.toLocaleDateString("en-CA"); // ✅ Keeps YYYY-MM-DD format in local time
+    console.log(`Selected ${type}:`, formattedDate);
+
+    if (type === "start") setStartDate(formattedDate);
+    else setEndDate(formattedDate);
+  };
 
   const handleApprovePayment = () => {
     if (selectedCustomer && startDate && endDate && amount) {
-          const formattedStartDate = new Date(startDate).toISOString().split("T")[0];
-    const formattedEndDate = new Date(endDate).toISOString().split("T")[0];
       setShowModal(true);
     } else {
       alert("Please fill in all fields before approving payment.");
@@ -146,9 +152,9 @@ const Payment = () => {
           <div className="card mt-3 p-3" id="approve-payment-form">
             <h4 className="text-center">Approve Payment for {selectedCustomer.firstname} {selectedCustomer.lastname}</h4>
             <label>Start Date:</label>
-            <input type="date" className="form-control" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+            <input type="date" className="form-control" value={startDate} onChange={(e) => handleDateChange(e, "start")} />
             <label className="mt-2">End Date:</label>
-            <input type="date" className="form-control" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+            <input type="date" className="form-control" value={endDate} onChange={(e) => handleDateChange(e, "end")} />
             <label className="mt-2">Amount:</label>
             <input type="number" className="form-control" placeholder="Enter payment amount" value={amount} onChange={(e) => setAmount(e.target.value)} />
             <div className="mt-3 d-flex justify-content-end gap-2">
@@ -170,19 +176,15 @@ const Payment = () => {
                 <button type="button" className="btn-close" onClick={() => setShowModal(false)}></button>
               </div>
               <div className="modal-body">
-                <div className="mb-3">
-                  <label>Username</label>
-                  <input type="text" className="form-control" value={adminUsername} onChange={(e) => setAdminUsername(e.target.value)} />
-                </div>
-                <div className="mb-3">
-                  <label>Password</label>
-                  <input type="password" className="form-control" value={adminPassword} onChange={(e) => setAdminPassword(e.target.value)} />
-                </div>
+                <label>Username</label>
+                <input type="text" className="form-control" value={adminUsername} onChange={(e) => setAdminUsername(e.target.value)} />
+                <label>Password</label>
+                <input type="password" className="form-control" value={adminPassword} onChange={(e) => setAdminPassword(e.target.value)} />
                 {message && <div className="alert alert-danger mt-3">{message}</div>}
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>Cancel</button>
-                <button type="button" className="btn btn-dark" onClick={handleAdminLogin}>
+                <button className="btn btn-secondary" onClick={() => setShowModal(false)}>Cancel</button>
+                <button className="btn btn-dark" onClick={handleAdminLogin}>
                   {loggingIn ? <span className="spinner-border spinner-border-sm"></span> : "Approve"}
                 </button>
               </div>
