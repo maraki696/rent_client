@@ -28,6 +28,17 @@ const Payment = () => {
     });
   }, []);
 
+<<<<<<< HEAD
+=======
+
+  useEffect(() => {
+    if (selectedCustomer) {
+      const formElement = document.getElementById("approve-payment-form");
+      formElement?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [selectedCustomer]);
+
+>>>>>>> d7a3d92 (Your commit message)
   const filteredCustomers = customers.filter((customer) =>
     `${customer.firstname} ${customer.lastname}`.toLowerCase().includes(searchQuery.toLowerCase())
   );
