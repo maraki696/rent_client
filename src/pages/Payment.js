@@ -28,9 +28,6 @@ const Payment = () => {
     });
   }, []);
 
-<<<<<<< HEAD
-=======
-
   useEffect(() => {
     if (selectedCustomer) {
       const formElement = document.getElementById("approve-payment-form");
@@ -38,7 +35,6 @@ const Payment = () => {
     }
   }, [selectedCustomer]);
 
->>>>>>> d7a3d92 (Your commit message)
   const filteredCustomers = customers.filter((customer) =>
     `${customer.firstname} ${customer.lastname}`.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -100,8 +96,8 @@ const Payment = () => {
   };
 
   return (
-    <div className="container regcontainer" >
-      <div className="card shadow p-4" >
+    <div className="container regcontainer">
+      <div className="card shadow p-4">
         <h2 className="text-center mb-3">Approve Rent Payments</h2>
 
         <div className="input-group mb-3">
@@ -124,7 +120,7 @@ const Payment = () => {
             </div>
           </div>
         ) : (
-          <ul className="list-group customer-list" >
+          <ul className="list-group customer-list">
             {filteredCustomers.map((customer) => (
               <li key={customer.customer_id} className="list-group-item d-flex justify-content-between align-items-center">
                 {customer.firstname} {customer.lastname}
