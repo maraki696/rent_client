@@ -89,19 +89,17 @@ const PaymentTable = () => {
                                 </tr>
                             ) : (
                                 filteredPayments.map((payment) => (
-                                    <tr key={payment.payment_id}>
-                                        <td>{payment.firstname} {payment.lastname}</td>
-                                      
-                                        <td className="d-none d-sm-table-cell">${payment.amount}</td>
-                                       <td>${payment.paymentdate}</td>
-                                  <td  className="d-none d-sm-table-cell">${payment.startdate}</td>
-                                <td  className="d-none d-sm-table-cell">${payment.enddate}</td>
+                                   <tr key={payment.payment_id}>
+    <td>{payment.firstname} {payment.lastname}</td>                                      
+    <td className="d-none d-sm-table-cell">${payment.amount}</td>
+    <td>{payment.paymentdate}</td> 
+    <td className="d-none d-sm-table-cell">{payment.startdate}</td>
+    <td className="d-none d-sm-table-cell">{payment.enddate}</td> 
+    <td className={payment.payment_status === "Paid" ? "text-success" : "text-danger"}>
+        {payment.payment_status}
+    </td>
+</tr>
 
-                                        <td className={payment.payment_status === "Paid" ? "text-success" : "text-danger"}>
-                                            {payment.payment_status}
-                                        </td>
-                                       
-                                    </tr>
                                 ))
                             )}
                         </tbody>
