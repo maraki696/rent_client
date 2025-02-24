@@ -1,226 +1,114 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { faSearch, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSort, faSearch } from "@fortawesome/free-solid-svg-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const Payment = () => {
-  const [customers, setCustomers] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCustomer, setSelectedCustomer] = useState(null);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [amount, setAmount] = useState("");
-  const [showModal, setShowModal] = useState(false);
-  const [adminUsername, setAdminUsername] = useState("");
-  const [adminPassword, setAdminPassword] = useState("");
-  const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [approving, setApproving] = useState(false);
-  const [loggingIn, setLoggingIn] = useState(false);
+const PaymentTable = () => {
+    const [payments, setPayments] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
 
-  useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_URL}/customers`)
-      .then((response) => {
-        setCustomers(response.data);
-        setLoading(false);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
-  }, []);
+    useEffect(() => {
+        const fetchPayments = async () => {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/payments`);
+                setPayments(response.data);
+            } catch (error) {
+                console.error("Error fetching payments:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-  useEffect(() => {
-    if (selectedCustomer) {
-      const formElement = document.getElementById("approve-payment-form");
-      formElement?.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-  }, [selectedCustomer]);
+        fetchPayments();
+    }, []);
 
-  const filteredCustomers = customers.filter((customer) =>
-    `${customer.firstname} ${customer.lastname}`.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+    const handleSort = (key) => {
+        let direction = "asc";
+        if (sortConfig.key === key && sortConfig.direction === "asc") {
+            direction = "desc";
+        }
+        setSortConfig({ key, direction });
 
-  const handleSelectCustomer = (customer) => {
-    setSelectedCustomer(customer);
-    setStartDate("");
-    setEndDate("");
-    setAmount("");
-  };
+        const sortedData = [...payments].sort((a, b) => {
+            if (a[key] < b[key]) return direction === "asc" ? -1 : 1;
+            if (a[key] > b[key]) return direction === "asc" ? 1 : -1;
+            return 0;
+        });
 
-  const handleApprovePayment = () => {
-    if (selectedCustomer && startDate && endDate && amount) {
-      setShowModal(true);
-    } else {
-      alert("Please fill in all fields before approving payment.");
-    }
-  };
+        setPayments(sortedData);
+    };
 
-  const handleAdminLogin = async () => {
-    setLoggingIn(true);
-    try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/admin/login`, {
-        username: adminUsername,
-        password: adminPassword,
-      });
+    const filteredPayments = payments.filter(payment =>
+        `${payment.firstname} ${payment.lastname}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        payment.customeremail.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
-      if (response.data.success) {
-        setApproving(true);
-        axios
-          .post(`${process.env.REACT_APP_API_URL}/approve_payment`, {
-            customer_id: selectedCustomer.customer_id,
-            start_date: startDate, // Send as is
-            end_date: endDate,     // Send as is
-            amount: amount,
-          })
-          .then(() => {
-            setMessage(`Payment approved for ${selectedCustomer.firstname} ${selectedCustomer.lastname}`);
-            setSelectedCustomer(null);
-            setCustomers(customers.map(c => c.customer_id === selectedCustomer.customer_id ? { ...c, payment_status: "Paid" } : c));
-          })
-          .catch((error) => {
-            console.error("Error approving payment:", error);
-            setMessage("Error approving payment.");
-          })
-          .finally(() => {
-            setApproving(false);
-            setShowModal(false);
-          });
-      } else {
-        setMessage("Invalid username or password.");
-      }
-    } catch (error) {
-      console.error("Error during admin login:", error);
-      setMessage("Error during login.");
-    }
-    setLoggingIn(false);
-  };
+    return (
+        <div className="container mt-4">
+            <h2 className="mb-2 mt-lg-3 mt-5">Payment Records</h2>
 
-  const handleDateChange = (e, type) => {
-    const selectedDate = e.target.value; // Keep the date string as is
-    if (type === "start") setStartDate(selectedDate);
-    else setEndDate(selectedDate);
-  };
-
-  return (
-    <div className="container regcontainer">
-      <div className="card shadow p-4">
-        <h2 className="text-center mb-3">Approve Rent Payments</h2>
-
-        <div className="input-group mb-3">
-          <span className="input-group-text bg-dark text-white">
-            <FontAwesomeIcon icon={faSearch} />
-          </span>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Search customer..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </div>
-
-        {loading ? (
-          <div className="text-center">
-            <div className="spinner-border text-dark" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
-          </div>
-        ) : (
-          <ul className="list-group customer-list">
-            {filteredCustomers.map((customer) => (
-              <li key={customer.customer_id} className="list-group-item d-flex justify-content-between align-items-center">
-                {customer.firstname} {customer.lastname}
-                {customer.payment_status === "Paid" ? (
-                  <span className="badge bg-success p-2">
-                    <FontAwesomeIcon icon={faCheckCircle} /> Paid
-                  </span>
-                ) : (
-                  <button className="btn btn-dark btn-sm" onClick={() => handleSelectCustomer(customer)}>
-                    Approve
-                  </button>
-                )}
-              </li>
-            ))}
-          </ul>
-        )}
-
-        {selectedCustomer && (
-          <div className="card mt-3 p-3" id="approve-payment-form">
-            <h4 className="text-center">Approve Payment for {selectedCustomer.firstname} {selectedCustomer.lastname}</h4>
-            <label>Start Date:</label>
-            <input
-              type="date"
-              className="form-control"
-              value={startDate}
-              onChange={(e) => handleDateChange(e, "start")}
-            />
-            <label className="mt-2">End Date:</label>
-            <input
-              type="date"
-              className="form-control"
-              value={endDate}
-              onChange={(e) => handleDateChange(e, "end")}
-            />
-            <label className="mt-2">Amount:</label>
-            <input
-              type="number"
-              className="form-control"
-              placeholder="Enter payment amount"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-            />
-            <div className="mt-3 d-flex justify-content-end gap-2">
-              <button className="btn btn-dark" onClick={handleApprovePayment}>
-                {approving ? <span className="spinner-border spinner-border-sm"></span> : "Confirm Approval"}
-              </button>
-              <button className="btn btn-secondary" onClick={() => setSelectedCustomer(null)}>Cancel</button>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {showModal && (
-        <div className="modal show d-block" tabIndex="-1">
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">Approve</h5>
-                <button type="button" className="btn-close" onClick={() => setShowModal(false)}></button>
-              </div>
-              <div className="modal-body">
-                <div className="mb-3">
-                  <label>Username</label>
-                  <input
+            <div className="input-group mb-3">
+                <span className="input-group-text"><FontAwesomeIcon icon={faSearch} /></span>
+                <input
                     type="text"
                     className="form-control"
-                    value={adminUsername}
-                    onChange={(e) => setAdminUsername(e.target.value)}
-                  />
-                </div>
-                <div className="mb-3">
-                  <label>Password</label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    value={adminPassword}
-                    onChange={(e) => setAdminPassword(e.target.value)}
-                  />
-                </div>
-                {message && <div className="alert alert-danger mt-3">{message}</div>}
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>Cancel</button>
-                <button type="button" className="btn btn-dark" onClick={handleAdminLogin}>
-                  {loggingIn ? <span className="spinner-border spinner-border-sm"></span> : "Approve"}
-                </button>
-              </div>
+                    placeholder="Search by name or email..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
             </div>
-          </div>
+
+            {loading ? (
+                <div className="text-center">
+                    <div className="spinner-border text-primary" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            ) : (
+                <div className="table-responsive"   style={{ maxHeight: "500px", overflow: "auto", border: "1px solid #ddd" }}>
+                    <table className="table table-striped table-bordered text-center">
+                        <thead className="table-dark">
+                            <tr>
+                                <th onClick={() => handleSort("firstname")} className="sortable">Customer <FontAwesomeIcon icon={faSort} /></th>
+                   
+                                <th onClick={() => handleSort("amount")} className="sortable d-none d-sm-table-cell">Amount <FontAwesomeIcon icon={faSort} /></th>
+                                <th onClick={() => handleSort("paymentdate")} className="sortable">Payment Date <FontAwesomeIcon icon={faSort} /></th>
+                                <th className="d-none d-sm-table-cell">Start Date</th>
+                                <th className="d-none d-sm-table-cell">End Date</th>
+                                <th onClick={() => handleSort("payment_status")} className="sortable">Status <FontAwesomeIcon icon={faSort} /></th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {filteredPayments.length === 0 ? (
+                                <tr>
+                                    <td colSpan="8" className="text-center">No payments found</td>
+                                </tr>
+                            ) : (
+                                filteredPayments.map((payment) => (
+                                    <tr key={payment.payment_id}>
+                                        <td>{payment.firstname} {payment.lastname}</td>
+                                      
+                                        <td className="d-none d-sm-table-cell">${payment.amount}</td>
+                                        <td>{new Date(payment.paymentdate).toLocaleDateString()}</td>
+                                        <td className="d-none d-sm-table-cell">{new Date(payment.startdate).toLocaleDateString()}</td>
+                                        <td className="d-none d-sm-table-cell">{new Date(payment.enddate).toLocaleDateString()}</td>
+                                        <td className={payment.payment_status === "Paid" ? "text-success" : "text-danger"}>
+                                            {payment.payment_status}
+                                        </td>
+                                       
+                                    </tr>
+                                ))
+                            )}
+                        </tbody>
+                    </table>
+                </div>
+            )}
         </div>
-      )}
-    </div>
-  );
+    );
 };
 
-export default Payment;
+export default PaymentTable;
