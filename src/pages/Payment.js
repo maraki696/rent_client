@@ -69,8 +69,8 @@ const Payment = () => {
         axios
           .post(`${process.env.REACT_APP_API_URL}/approve_payment`, {
             customer_id: selectedCustomer.customer_id,
-            start_date: startDate, // Use as is
-            end_date: endDate,     // Use as is
+            start_date: startDate, // Send as is
+            end_date: endDate,     // Send as is
             amount: amount,
           })
           .then(() => {
@@ -96,7 +96,6 @@ const Payment = () => {
     setLoggingIn(false);
   };
 
-  // Handle date changes (no conversion)
   const handleDateChange = (e, type) => {
     const selectedDate = e.target.value; // Keep the date string as is
     if (type === "start") setStartDate(selectedDate);
