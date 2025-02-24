@@ -28,23 +28,30 @@ const Payment = () => {
     });
   }, []);
 
-  useEffect(() => {
-    if (selectedCustomer) {
+  const handleSelectCustomer = (customer) => {
+    setSelectedCustomer(customer);
+    setStartDate("");
+    setEndDate("");
+    setAmount("");
+
+    setTimeout(() => {
       const formElement = document.getElementById("approve-payment-form");
       formElement?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 100);
+  };
+
+  useEffect(() => {
+    if (selectedCustomer) {
+      setTimeout(() => {
+        const formElement = document.getElementById("approve-payment-form");
+        formElement?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 100);
     }
   }, [selectedCustomer]);
 
   const filteredCustomers = customers.filter((customer) =>
     `${customer.firstname} ${customer.lastname}`.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
-  const handleSelectCustomer = (customer) => {
-    setSelectedCustomer(customer);
-    setStartDate("");
-    setEndDate("");
-    setAmount("");
-  };
 
   const handleApprovePayment = () => {
     if (selectedCustomer && startDate && endDate && amount) {
@@ -139,7 +146,7 @@ const Payment = () => {
         )}
 
         {selectedCustomer && (
-          <div className="card mt-3 p-3">
+          <div id="approve-payment-form" className="card mt-3 p-3">
             <h4 className="text-center">Approve Payment for {selectedCustomer.firstname} {selectedCustomer.lastname}</h4>
             <label>Start Date:</label>
             <input type="date" className="form-control" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
