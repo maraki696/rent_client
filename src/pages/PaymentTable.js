@@ -112,8 +112,3 @@ const PaymentTable = () => {
 };
 
 export default PaymentTable;
-
-
-
-
-
