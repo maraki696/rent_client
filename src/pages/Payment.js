@@ -20,12 +20,14 @@ const Payment = () => {
   const [loggingIn, setLoggingIn] = useState(false);
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_URL}/customers`).then((response) => {
-      setCustomers(response.data);
-      setLoading(false);
-    }).catch(() => {
-      setLoading(false);
-    });
+    axios.get(`${process.env.REACT_APP_API_URL}/customers`)
+      .then((response) => {
+        setCustomers(response.data);
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
   }, []);
 
   useEffect(() => {
@@ -67,8 +69,8 @@ const Payment = () => {
         axios
           .post(`${process.env.REACT_APP_API_URL}/approve_payment`, {
             customer_id: selectedCustomer.customer_id,
-            start_date: startDate,
-            end_date: endDate,
+            start_date: startDate, // Use as is
+            end_date: endDate,     // Use as is
             amount: amount,
           })
           .then(() => {
@@ -94,9 +96,9 @@ const Payment = () => {
     setLoggingIn(false);
   };
 
+  // Handle date changes (no conversion)
   const handleDateChange = (e, type) => {
-    const selectedDate = e.target.value; // Use the raw date string (YYYY-MM-DD)
-    
+    const selectedDate = e.target.value; // Keep the date string as is
     if (type === "start") setStartDate(selectedDate);
     else setEndDate(selectedDate);
   };
