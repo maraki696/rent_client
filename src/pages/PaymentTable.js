@@ -93,9 +93,9 @@ const PaymentTable = () => {
                                         <td>{payment.firstname} {payment.lastname}</td>
                                       
                                         <td className="d-none d-sm-table-cell">${payment.amount}</td>
-                                       <td>{payment.paymentdate}</td>
-<td  className="d-none d-sm-table-cell">{payment.startdate}</td>
-<td  className="d-none d-sm-table-cell">{payment.enddate}</td>
+                                       <td>${payment.paymentdate}</td>
+                                  <td  className="d-none d-sm-table-cell">${payment.startdate}</td>
+                                <td  className="d-none d-sm-table-cell">${payment.enddate}</td>
 
                                         <td className={payment.payment_status === "Paid" ? "text-success" : "text-danger"}>
                                             {payment.payment_status}
