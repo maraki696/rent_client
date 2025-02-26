@@ -48,8 +48,12 @@ function Read() {
                 <li className="list-group-item"><b>House Number:</b> {data.housenumber}</li>
                 <li className="list-group-item"><b>Monthly Payment:</b> {data.paymentamountpermonth}ETB</li>
                 <li className="list-group-item"><b>Yearly Payment:</b> {data.paymentamountperyear}ETB</li>
-                <li className="list-group-item"><b>Rent Date:</b> {data.rentdate}</li>
-                <li className="list-group-item"><b>Lease Expiry:</b> {data.leaseexpiredate}</li>
+               <li className="list-group-item">
+  <b>Rent Date:</b> {new Date(data.rentdate).toISOString().split('T')[0]}
+</li>
+<li className="list-group-item">
+  <b>Lease Expiry:</b> {new Date(data.leaseexpiredate).toISOString().split('T')[0]}
+</li>
                 <li className="list-group-item"><b>Floor Number:</b> {data.floornumber}</li>
               </ul>
             ) : (
