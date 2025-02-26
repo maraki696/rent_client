@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useNavigate } from "react-router-dom";
 
 function Update() {
   const [data, setData] = useState({});
@@ -9,7 +10,7 @@ function Update() {
   const { customer_id } = useParams();
   const [loading, setLoading] = useState(true); // Data loading state
   const [submitting, setSubmitting] = useState(false); // Button click loading state
-
+  const navigate = useNavigate();
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_API_URL}/get_customer/${customer_id}`)
