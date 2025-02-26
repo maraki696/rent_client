@@ -55,7 +55,7 @@ const AdminCreateAccount = () => {
     <div className="d-flex justify-content-center align-items-center mt-5">
       <div className="card p-4 shadow-lg d-flex flex-row">
         <div className="d-none d-md-block">
-          <img src={admin} alt="Admin Avatar" className="img-fluid mt-4" style={{ maxWidth: "300px" }} />
+          <img src={admin} alt="Admin Avatar" className="img-fluid admin" style={{ maxWidth: "300px" }} />
         </div>
         <div className="p-4" style={{ width: "300px" }}>
           <h3 className="text-center fw-bold">Admin Register</h3>
