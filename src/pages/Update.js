@@ -36,6 +36,7 @@ function Update() {
         setSubmitting(false);
         setTimeout(() => {
           setMessage(null);
+           navigate(-1);
         }, 2000);
       })
       .catch((err) => {
