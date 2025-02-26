@@ -7,7 +7,7 @@ import {
   faEye,
   faEyeSlash,
   faEnvelope,
-  faPhone,
+
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import admin from "../assets/4153553.jpg";
@@ -15,7 +15,7 @@ import admin from "../assets/4153553.jpg";
 const AdminCreateAccount = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [phonenumber, setPhonenumber] = useState("");
+
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -38,7 +38,7 @@ const AdminCreateAccount = () => {
         {
           username,
           email,
-          phonenumber,
+        
           password,
         }
       );
@@ -91,21 +91,7 @@ const AdminCreateAccount = () => {
               </div>
             </div>
 
-            <div className="mb-3">
-              <label className="form-label">Phone Number</label>
-              <div className="input-group">
-                <span className="input-group-text"><FontAwesomeIcon icon={faPhone} /></span>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter phone number"
-                  value={phonenumber}
-                  onChange={(e) => setPhonenumber(e.target.value)}
-                  required
-                />
-              </div>
-            </div>
-
+          
             <div className="mb-3">
               <label className="form-label">Password</label>
               <div className="input-group">
