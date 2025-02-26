@@ -5,10 +5,14 @@
  font-family: sans-serif;
     overflow-x: hidden;
 }
-.btn-sm {
+ .btn-sm {
   white-space: nowrap;
-  padding: 5px 5px; /* Adjust padding if needed */
-  font-size: 12px; /* Adjust font size */
+   padding: 5px 5px;  
+ font-size: 12px; 
+ min-width: 60px;
+} 
+.admin{
+  margin-top: 20%;
 }
 
 
