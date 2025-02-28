@@ -211,7 +211,7 @@ function Update() {
             </div>
 
             <div className="text-end mt-3">
-              <button type="submit" className="btn btn-secondary w-25" disabled={submitting}>
+              <button type="submit" className="btn btn-secondary" style={{ maxWidth: "165px" }}  disabled={submitting}>
                 {submitting ? (
                   <>
                     <span
