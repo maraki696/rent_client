@@ -178,24 +178,7 @@ function Update() {
                   />
                 </div>
 
-                <div className="form-group my-2">
-                  <label htmlFor="leaseexpiredate">Lease Expiry Date</label>
-                  <input
-                    value={
-                      data.leaseexpiredate
-                        ? new Date(data.leaseexpiredate).toISOString().split("T")[0]
-                        : ""
-                    }
-                    type="date"
-                    className="form-control"
-                    required
-                    onChange={(e) => {
-                      const selectedDate = e.target.value;
-                      const fullDateTime = new Date(selectedDate).toISOString();
-                      setData({ ...data, leaseexpiredate: fullDateTime });
-                    }}
-                  />
-                </div>
+             
 
                 <div className="form-group my-2">
                   <label htmlFor="floornumber">Floor Number</label>
