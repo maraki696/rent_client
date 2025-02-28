@@ -132,6 +132,11 @@ function Update() {
                   />
                 </div>
 
+              </div>
+
+              {/* Right Column */}
+              <div className="col-md-6">
+                
                 <div className="form-group my-2">
                   <label htmlFor="housenumber">House Number</label>
                   <input
@@ -142,10 +147,6 @@ function Update() {
                     onChange={(e) => setData({ ...data, housenumber: e.target.value })}
                   />
                 </div>
-              </div>
-
-              {/* Right Column */}
-              <div className="col-md-6">
                 <div className="form-group my-2">
                   <label htmlFor="paymentamountpermonth">Payment Per Month</label>
                   <input
