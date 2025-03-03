@@ -28,7 +28,7 @@ function Update() {
     e.preventDefault();
     setSubmitting(true); // Show spinner on button
     axios
-      .put(`${process.env.REACT_APP_API_URL}/edit_customer/${customer_id}`, data)
+      .put(`${process.env.REACT_APP_API_URL}/edit/${customer_id}`, data)
       .then((res) => {
         setMessage({
           type: "success",
